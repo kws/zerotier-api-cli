@@ -1,0 +1,32 @@
+[project]
+name = "zerotier-api-cli"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Kaj Siebert",email = "kaj@k-si.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click (>=8.1.8,<9.0.0)",
+    "rich (>=14.0.0,<15.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "platformdirs (>=4.3.7,<5.0.0)",
+    "pyyaml (>=6.0.2,<7.0.0)",
+    "click-log (>=0.4.0,<0.5.0)",
+    "humanize (>=4.9.0,<5.0.0)"
+]
+
+[project.scripts]
+ztcli = "zerotier_api_cli._cli:cli"
+
+[tool.poetry]
+packages = [
+    { include = "zerotier_api_cli" }
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

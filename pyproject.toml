@@ -1,6 +1,6 @@
 [project]
 name = "zerotier-api-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "A command-line interface for managing ZeroTier networks, built with Python."
 authors = [
     {name = "Kaj Siebert",email = "kaj@k-si.com"}

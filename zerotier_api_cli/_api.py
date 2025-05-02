@@ -42,3 +42,12 @@ def update_member_name(token, network_id, member_id, name):
     resp = requests.post(url, headers=_api_headers(token), json=payload)
     resp.raise_for_status()
     return resp.json()
+
+
+def update_member_ip(token, network_id, member_id, ip_address):
+    """Update a member's IP address by ID."""
+    url = f"{ZT_API_BASE}/network/{network_id}/member/{member_id}"
+    payload = {"config": {"ipAssignments": [ip_address]}}
+    resp = requests.post(url, headers=_api_headers(token), json=payload)
+    resp.raise_for_status()
+    return resp.json()

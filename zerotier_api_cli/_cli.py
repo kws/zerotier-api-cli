@@ -10,7 +10,7 @@ from rich.logging import RichHandler
 from humanize import naturaltime
 
 import zerotier_api_cli._config as cfg
-from zerotier_api_cli._api import fetch_members, authorize_member, remove_member, update_member_name
+from zerotier_api_cli._api import fetch_members, authorize_member, remove_member, update_member_name, update_member_ip
 
 console = Console()
 logger = logging.getLogger()
@@ -125,6 +125,19 @@ def rename(ctx, member_id, name):
         console.print(f"[bold green]Success:[/] Client {member_id} renamed to '{name}'.")
     except Exception as e:
         console.print(f"[bold red]Error:[/] Could not rename {member_id}: {e}")
+        sys.exit(1)
+
+@cli.command()
+@click.argument("member_id")
+@click.argument("ip_address")
+@click.pass_context
+def set_ip(ctx, member_id, ip_address):
+    "Set the IP address for a client by MEMBER_ID."
+    try:
+        result = update_member_ip(ctx.obj["token"], ctx.obj["network_id"], member_id, ip_address)
+        console.print(f"[bold green]Success:[/] Client {member_id} IP address set to '{ip_address}'.")
+    except Exception as e:
+        console.print(f"[bold red]Error:[/] Could not set IP address for {member_id}: {e}")
         sys.exit(1)
 
 @cli.command()

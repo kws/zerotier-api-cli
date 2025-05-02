@@ -33,3 +33,12 @@ def remove_member(token, network_id, member_id):
     resp = requests.delete(url, headers=_api_headers(token))
     resp.raise_for_status()
     return True
+
+
+def update_member_name(token, network_id, member_id, name):
+    """Update a member's name by ID."""
+    url = f"{ZT_API_BASE}/network/{network_id}/member/{member_id}"
+    payload = {"name": name}
+    resp = requests.post(url, headers=_api_headers(token), json=payload)
+    resp.raise_for_status()
+    return resp.json()

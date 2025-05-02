@@ -10,7 +10,7 @@ from rich.logging import RichHandler
 from humanize import naturaltime
 
 import zerotier_api_cli._config as cfg
-from zerotier_api_cli._api import fetch_members, authorize_member, remove_member
+from zerotier_api_cli._api import fetch_members, authorize_member, remove_member, update_member_name
 
 console = Console()
 logger = logging.getLogger()
@@ -112,6 +112,19 @@ def remove(ctx, member_id):
         console.print(f"[bold green]Removed:[/] Client {member_id} deleted.")
     except Exception as e:
         console.print(f"[bold red]Error:[/] Could not remove {member_id}: {e}")
+        sys.exit(1)
+
+@cli.command()
+@click.argument("member_id")
+@click.argument("name")
+@click.pass_context
+def rename(ctx, member_id, name):
+    "Rename a client by MEMBER_ID to the specified NAME."
+    try:
+        result = update_member_name(ctx.obj["token"], ctx.obj["network_id"], member_id, name)
+        console.print(f"[bold green]Success:[/] Client {member_id} renamed to '{name}'.")
+    except Exception as e:
+        console.print(f"[bold red]Error:[/] Could not rename {member_id}: {e}")
         sys.exit(1)
 
 @cli.command()
